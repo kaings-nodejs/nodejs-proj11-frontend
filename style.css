@@ -1,0 +1,18 @@
+/* Styles go here */
+.simple {
+  background-color: lightgreen;
+  border-radius: 5px;
+  padding: 5px 20px;
+}
+.advanced {
+  background-color: orange;
+  border-radius: 5px;
+  padding: 5px 20px;
+}
+
+.simple.graphql {
+  background-color: rgb(243, 139, 229);
+}
+.advanced.graphql {
+  background-color: rgb(214, 139, 243);
+}
