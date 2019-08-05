@@ -177,18 +177,22 @@ advancedPostGraphqlBtn.addEventListener('click', () => {
     console.log('advancedPostGraphql_result_file..... ', file);
 
     const advancedGraphqlMutationQuery = {
-    query: 
-    `
-      mutation {
-        createAdvancedPost(advancedPostInput: { init: "${initElGraphql.value}", filePath: "${file.path}" }) {
-          message
-          init
-          filePath
-          createdDate
-          id
+      query: 
+      `
+        mutation($input: String!, $fileLocation: String!) {
+          createAdvancedPost(advancedPostInput: { init: $input, filePath: $fileLocation }) {
+            message
+            init
+            filePath
+            createdDate
+            id
+          }
         }
+      `,
+      variables: {
+        input: initElGraphql.value,
+        fileLocation: file.path
       }
-    `
     };
 
     return fetch('http://localhost:3001/graphql', {
@@ -218,11 +222,12 @@ advancedGetGraphqlBtn.addEventListener('click', () => {
 
 // another way of passing argument(s) to the graphql query/mutation, instead of passing directly "${xxxxx}", 
 // wrap the query/mutation inside function and pass the argument(s) via property 'variables'
+// changing the variable name as below is OK. But, the type 'String!' as below must ALWAYS follow the schema
   const advancedGraphqlQuery = {
     query:
     `
-      query myLoginFunc($username: String!, $email: String!) {
-        login(loginInput: {username: $username, email: $email}) {
+      query myLoginFunc($username1: String!, $email: String!) {
+        login(loginInput: {username: $username1, email: $email}) {
           token
           email
           username
@@ -230,7 +235,7 @@ advancedGetGraphqlBtn.addEventListener('click', () => {
       }
     `,
     variables: {
-      username: 'Will',
+      username1: 'Will',
       email: 'will@will.com'
     }
   };
