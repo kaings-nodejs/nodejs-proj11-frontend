@@ -185,6 +185,7 @@ advancedPostGraphqlBtn.addEventListener('click', () => {
           init
           filePath
           createdDate
+          id
         }
       }
     `
