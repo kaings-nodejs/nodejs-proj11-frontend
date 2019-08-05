@@ -210,8 +210,44 @@ advancedPostGraphqlBtn.addEventListener('click', () => {
 
 
 
+// ADVANCED GRAPHQL GET (QUERY)
 
+const advancedGetGraphqlBtn = document.getElementById('advanced-getGraphql');
 
+advancedGetGraphqlBtn.addEventListener('click', () => {
+
+// another way of passing argument(s) to the graphql query/mutation, instead of passing directly "${xxxxx}", 
+// wrap the query/mutation inside function and pass the argument(s) via property 'variables'
+  const advancedGraphqlQuery = {
+    query:
+    `
+      query myLoginFunc($username: String!, $email: String!) {
+        login(loginInput: {username: $username, email: $email}) {
+          token
+          email
+          username
+        }
+      }
+    `,
+    variables: {
+      username: 'Will',
+      email: 'will@will.com'
+    }
+  };
+
+  fetch('http://localhost:3001/graphql', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(advancedGraphqlQuery)
+  })
+  .then(res => res.json())
+  .then(result => {
+    console.log('advancedGetGraphql_result..... ', result);
+  })
+  .catch(err => {console.log(err)});
+});
 
 
 
